@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js">
+    </script>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>
+                Felhasználónév:
+            </td>
+            <td>
+                <input type="text" style="width:95%;" id="nev">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Jelszó:
+            </td>
+            <td>
+                <input type="password" id="pass">
+                <button>felfed</button>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="button" id="btn" value="Küldés"></td>
+        </tr>
+    </table>
+
+    <script>
+        $('#nev').focusin(function(){
+            $(this).css("background-color","#cecece");
+            $(this).parent().after("<td class='szoveg'>Add meg a felhasználóneved!</td>");
+        }).blur(function(){
+            $(this).css("background-color","white");
+            $(".szoveg").remove();
+        });
+        $('#pass').focusin(function(){
+            $(this).css("background-color","#cecece");
+            $(this).parent().after("<td class='szoveg'>Add meg a jelszavad!</td>");
+        }).blur(function(){
+            $(this).css("background-color","white");
+            $(".szoveg").remove();
+        });
+        $('#btn').click(function(){
+            $('.hiba').remove();
+            const nev=$("#nev").val();
+            const pass=$("#pass").val();
+            if(nev.length<4||nev.length>30){
+                $("body").prepend("<div class='hiba' style='background-color:red'>Nem megfelelő a név hossza</div>");
+            }
+            if(pass.length<5){
+                $("body").prepend("<div class='hiba' style='background-color:red'>Nem megfelelő a jelszó hossza</div>");
+            }
+        });
+        $('button').click(function(){
+            if($('#pass').attr("type")=="password"){
+                $('#pass').attr("type","text");
+                $(this).text("elrejt");
+            }
+            else if($('#pass').attr("type")=="text"){
+                $('#pass').attr("type","password");
+                $(this).text("felfed");
+            }
+        })
+    </script>
+</body>
+</html>
